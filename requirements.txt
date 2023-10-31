@@ -1,0 +1,16 @@
+python-speech-features==0.6
+scipy==1.10.0
+opencv-python==4.5.4.60
+sentencepiece==0.1.96
+editdistance==0.6.0
+dlib==19.24.2
+scikit-image==0.22.0
+scikit-learn==1.3.2
+scikit-video==1.1.11
+ipython==8.17.1
+tqdm==4.66.1
+librosa==0.10.1
+pandas==2.1.2
+faiss-gpu==1.7.2
+torchvision==0.16.0
+timm==0.9.8
