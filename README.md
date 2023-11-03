@@ -4,7 +4,7 @@ Official PyTorch Implementation of [**"Detecting Deepfakes Without Seeing Any"**
 
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/detecting-deepfakes-without-seeing-any/deepfake-detection-on-fakeavceleb-1)](https://paperswithcode.com/sota/deepfake-detection-on-fakeavceleb-1?p=detecting-deepfakes-without-seeing-any)
 
-## False facts in deepfake attack
+## False Facts in Deepfake Attacks
 ![False facts](./figures/alignment.png)
 
 (a) Face forgery: the claimed identity is seamlessly blended
