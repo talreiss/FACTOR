@@ -1,7 +1,8 @@
 ## Detecting Deepfake Without Seeing Any
 
-Official PyTorch Implementation of [**"Detecting Deepfake Without Seeing Any"**](https://arxiv.org/). 
+Official PyTorch Implementation of [**"Detecting Deepfake Without Seeing Any"**](https://arxiv.org/pdf/2311.01458.pdf).
 
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/detecting-deepfakes-without-seeing-any/deepfake-detection-on-fakeavceleb-1)](https://paperswithcode.com/sota/deepfake-detection-on-fakeavceleb-1?p=detecting-deepfakes-without-seeing-any)
 
 ## False facts in deepfake attack
 ![False facts](./figures/alignment.png)
@@ -14,7 +15,7 @@ Obama”.
 video is generated to align with the original audio. Fake media are accompanied by a false fact, that
 the video and audio describe the same event. 
 
-(c) Text-to-Image (TTI): the textual prompt is used
+(c) Text-to-Image (TTI): the textual prompt is used§
 by a generative model e.g. Stable Diffusion, to generate a corresponding image. The fake image is
 accompanied by a false fact, that the caption and the image describe the same content.
 
