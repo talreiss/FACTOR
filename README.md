@@ -1,6 +1,6 @@
-## Detecting Deepfake Without Seeing Any
+## Detecting Deepfakes Without Seeing Any
 
-Official PyTorch Implementation of [**"Detecting Deepfake Without Seeing Any"**](https://arxiv.org/pdf/2311.01458.pdf).
+Official PyTorch Implementation of [**"Detecting Deepfakes Without Seeing Any"**](https://arxiv.org/pdf/2311.01458.pdf).
 
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/detecting-deepfakes-without-seeing-any/deepfake-detection-on-fakeavceleb-1)](https://paperswithcode.com/sota/deepfake-detection-on-fakeavceleb-1?p=detecting-deepfakes-without-seeing-any)
 
