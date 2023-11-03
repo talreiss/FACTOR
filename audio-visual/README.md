@@ -70,7 +70,7 @@ Finally, you can evaluate by running the following command:
 cd av_hubert/avhubert
 python eval.py [--category]
 ```
-Where `--category` is one of the following: `[rvfa', 'fvra', 'fvfa-wl', 'fvfa-fs', 'fvfa-gan']`. \
+Where `--category` is one of the following: `['rvfa', 'fvra', 'fvfa-wl', 'fvfa-fs', 'fvfa-gan']`. \
 When the `category` is `'rvfa'`, RVRA will be compared with RVFA.
 
 ## AV-HuBERT
