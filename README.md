@@ -47,5 +47,10 @@ Please refer to `audio-visual/` and the [instructions](./audio-visual/README.md)
 ## Citation
 If you find this useful, please cite our paper:
 ```
-
+@article{reiss2023detecting,
+  title={Detecting Deepfakes Without Seeing Any},
+  author={Reiss, Tal and Cavia, Bar and Hoshen, Yedid},
+  journal={arXiv preprint arXiv:2311.01458},
+  year={2023}
+}
 ```
