@@ -17,7 +17,7 @@ labels = np.load(args.labels_root, allow_pickle=True)
 index = faiss.IndexFlatL2(train_set.shape[1])
 index.add(train_set)
 k_value = 1
-D, _ = index.search(test_set, k)
+D, _ = index.search(test_set, k_value)
 distances = np.sum(D, axis=1)
 
 auc = roc_auc_score(labels, distances)
