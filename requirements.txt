@@ -5,7 +5,7 @@ sentencepiece==0.1.96
 editdistance==0.6.0
 dlib==19.24.2
 scikit-image==0.22.0
-scikit-learn==1.3.2
+scikit-learn>=1.5.0
 scikit-video==1.1.11
 ipython==8.17.1
 tqdm>=4.66.3
