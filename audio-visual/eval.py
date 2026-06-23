@@ -8,6 +8,9 @@ import argparse
 
 parser = argparse.ArgumentParser(description='')
 parser.add_argument('--category', default='rvfa')
+# New feature arguments
+parser.add_argument('--lambda_percentile', type=float, default=3.0, help='Percentile value for thresholding')
+parser.add_argument('--output_csv', type=str, default='', help='Path to save evaluation results')
 args = parser.parse_args()
 
 dir_RVRA = './RealVideo-RealAudio_features'
@@ -37,7 +40,7 @@ rvra_vid = np.load(os.path.join(dir_RVRA, 'video.npy'), allow_pickle=True)
 all_rvra_paths = np.load(os.path.join(dir_RVRA, 'paths.npy'), allow_pickle=True)
 
 rvra_audio_video = []
-lambda_percentile = 3
+lambda_percentile = args.lambda_percentile
 
 for i in tqdm(range(rvra_audio.shape[0]), total=rvra_audio.shape[0]):
     cur_path = all_rvra_paths[i]
@@ -62,9 +65,4 @@ for i in tqdm(range(fake_audio.shape[0]), total=fake_audio.shape[0]):
     fake_audio_video.append(np.percentile((fake_audio_unit * fake_vid_unit).sum(axis=1), lambda_percentile))
 
 test_set = -np.concatenate((rvra_audio_video, fake_audio_video))
-labels = np.ones(len(test_set))
-labels[:len(rvra_audio_video)] = 0
-
-auc = roc_auc_score(labels, test_set)
-ap = average_precision_score(labels, test_set)
-print(f'AP: {ap*100}, AUC: {auc*100}')
+labels =
