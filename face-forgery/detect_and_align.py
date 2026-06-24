@@ -24,36 +24,36 @@ def Filter2centerBox(boundingBoxes, frame):
     min_idx = -1
     for i, det in enumerate(boundingBoxes):
         distance = distance2center(det[0], det[1], det[2], det[3], frame)
-        # cv2.rectangle(frame, (int(det[0]), int(det[1])), (int(det[2]), int(det[3])), (2, 255, 0), 1)
-        # cv2.imshow("x", frame)
-        # cv2.waitKey(0)
         if distance < min_distance:
             min_idx = i
             min_distance = distance
-    return np.array([boundingBoxes[min_idx]])
+    return np.array([boundingBoxes[min_idx]]), len(boundingBoxes) > 1  # Added multi-face flag
 
 
-def AlignedOneImageUsingFaceXAlignment(input_root, out_root, image_path):
-    # print("aligning {}".format(image_path))
+def AlignedOneImageUsingFaceXAlignment(input_root, out_root, image_path, log_file):
     try:
         image = cv2.imread(image_path, cv2.IMREAD_COLOR)
         input_height, input_width, _ = image.shape
     except:
         return
     dets = faceDetModelHandler.inference_on_image(image)
+    out_path = image_path.replace(input_root, out_root)
+    
     if len(dets) > 0:
-        dets = Filter2centerBox(dets, image)
+        dets, is_multi_face = Filter2centerBox(dets, image)
+        
+        if is_multi_face and log_file:
+            log_file.write(f"Multi-face detected: {image_path}\n")
+            
         for i, det in enumerate(dets):
-            assert (i != 1)  # only one face in picture
             landmarks = faceAlignModelHandler.inference_on_image(image, det)
-            # print(landmarks.shape)
             cropped_image = face_cropper.crop_image_by_mat(image, landmarks.reshape(-1))
-            out_path = image_path.replace(input_root, out_root)
             if os.path.exists(os.path.dirname(out_path)) is False:
                 os.makedirs(os.path.dirname(out_path))
             cv2.imwrite(out_path, cropped_image)
     else:
-        out_path = image_path.replace(input_root, out_root)
+        if os.path.exists(os.path.dirname(out_path)) is False:
+            os.makedirs(os.path.dirname(out_path))
         cv2.imwrite(out_path, image)
 
 
@@ -67,7 +67,6 @@ if __name__ == '__main__':
         model_conf = yaml.load(f, yaml.FullLoader)
 
     model_path = 'models'
-    # detect init
     scene = 'non-mask'
     model_category = 'face_detection'
     model_name = model_conf[scene][model_category]
@@ -75,16 +74,17 @@ if __name__ == '__main__':
     modelDet, cfgDet = faceDetModelLoader.load_model()
     faceDetModelHandler = FaceDetModelHandler(modelDet, 'cuda:0', cfgDet)
 
-    # alignment init
     model_category = 'face_alignment'
     model_name = model_conf[scene][model_category]
     faceAlignModelLoader = FaceAlignModelLoader(model_path, model_category, model_name)
     modelAli, cfgAli = faceAlignModelLoader.load_model()
     faceAlignModelHandler = FaceAlignModelHandler(modelAli, 'cuda:0', cfgAli)
 
-    # face croper
     face_cropper = FaceRecImageCropper()
     to_iterate = list(os.walk(args.input_root))
-    for root, dirs, files in tqdm(to_iterate, total=len(to_iterate)):
-        for file in files:
-            AlignedOneImageUsingFaceXAlignment(args.input_root, args.out_root, os.path.join(root, file))
+    
+    # Open log file to track multi-face occurrences safely
+    with open(os.path.join(args.out_root, 'multi_face_log.txt'), 'w') as log_f:
+        for root, dirs, files in tqdm(to_iterate, total=len(to_iterate)):
+            for file in files:
+                AlignedOneImageUsingFaceXAlignment(args.input_root, args.out_root, os.path.join(root, file), log_f)
